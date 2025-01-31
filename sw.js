@@ -1,12 +1,12 @@
-const CACHE_NAME = "pwa-cache-v2"; // Change cache name to update cache
+const CACHE_NAME = "pwa-cache-v3"; // Update cache name
 const urlsToCache = [
-    "/",
-    "/index.html",
-    "/style.css",
-    "/app.js",
-    "/manifest.json",
-    "/icon-192.png",
-    "/icon-512.png"
+    "/southerndew.quickfixpwa.io/",
+    "/southerndew.quickfixpwa.io/index.html",
+    "/southerndew.quickfixpwa.io/style.css",  // ✅ Fix this path
+    "/southerndew.quickfixpwa.io/app.js",
+    "/southerndew.quickfixpwa.io/manifest.json",
+    "/southerndew.quickfixpwa.io/assets/icons/icon-192.png",
+    "/southerndew.quickfixpwa.io/assets/icons/icon-512.png"
 ];
 
 // Install Service Worker & Cache Files
@@ -14,7 +14,8 @@ self.addEventListener("install", (event) => {
     event.waitUntil(
         caches.open(CACHE_NAME).then((cache) => {
             console.log("Caching files...");
-            return cache.addAll(urlsToCache);
+            return cache.addAll(urlsToCache).catch((err) => {
+                console.error("Failed to cache:", err);
         })
     );
 });
